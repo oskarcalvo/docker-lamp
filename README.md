@@ -41,13 +41,13 @@ The [Drupal](https://wwww.drupal.org) bundle consist of the following containers
 
 | Container | Version | Service name | Image | Public Port | Enabled by default |
 | --------- | ------- | ------------ | ----- | ----------- | ------------------ |
-| [Varnish](#varnish) | [5.1](https://github.com/keopx/docker-varnish/blob/master/5.1/)/[5.0](https://github.com/keopx/docker-varnish/blob/master/5.0/)/[4.0](https://github.com/keopx/docker-varnish/blob/master/4.0/) | varnish | <a href="https://hub.docker.com/r/keopx/varnish/" target="_blank">keopx/varnish</a> | 80 | ✓ |
+| [Varnish](#varnish) | [5.1](https://github.com/keopx/docker-varnish/blob/master/5.1/)/[5.0](https://github.com/keopx/docker-varnish/blob/master/5.0/)/[4.0](https://github.com/keopx/docker-varnish/blob/master/4.0/) | varnish | <a href="https://hub.docker.com/r/keopx/varnish/" target="_blank">keopx/varnish</a> | 80 | X |
 | [Apache PHP](#apache-php) | [7.2](https://github.com/keopx/docker-apache-php/blob/master/7.2/)/[7.1](https://github.com/keopx/docker-apache-php/blob/master/7.1/)/[7.0](https://github.com/keopx/docker-apache-php/blob/master/7.0/)/[5.6](https://github.com/keopx/docker-apache-php/blob/master/5.6/) | apache-php | <a href="https://hub.docker.com/r/keopx/apache-php/" target="_blank">keopx/apache-php</a> | 8008 | ✓ |
 | [MySQL](#mysql) | [8.0](https://github.com/keopx/docker-mysql/blob/master/8.0/)/[5.7](https://github.com/keopx/docker-mysql/blob/master/5.7/)/[5.6](https://github.com/keopx/docker-mysql/blob/master/5.6/)/[5.5](https://github.com/keopx/docker-mysql/blob/master/5.5/) | mysql | <a href="https://hub.docker.com/r/keopx/mysql/" target="_blank">keopx/mysql</a> | 3306 | ✓ |
-| [Mariadb](#maria) | [10](https://github.com/wodby/mariadb) | mariadb | <a href="https://hub.docker.com/r/wodby/mariadb/" target="_blank">wodby/mariadb</a> | 3306 | ✓ |
-| [Redis](#redis) | [3.2](https://github.com/keopx/docker-redis/blob/master/3.2/)/[3.0](https://github.com/keopx/docker-redis/blob/master/3.0/) | redis | <a href="https://hub.docker.com/r/keopx/redis/" target="_blank">keopx/redis</a> | 6379 | ✓ |
+| [Mariadb](#maria) | [10](https://github.com/wodby/mariadb) | mariadb | <a href="https://hub.docker.com/r/wodby/mariadb/" target="_blank">wodby/mariadb</a> | 3306 | X |
+| [Redis](#redis) | [3.2](https://github.com/keopx/docker-redis/blob/master/3.2/)/[3.0](https://github.com/keopx/docker-redis/blob/master/3.0/) | redis | <a href="https://hub.docker.com/r/keopx/redis/" target="_blank">keopx/redis</a> | 6379 | X |
 | [phpMyAdmin](#phpmyadmin) | | phpmyadmin | <a href="https://hub.docker.com/r/phpmyadmin/phpmyadmin" target="_blank">phpmyadmin/phpmyadmin</a> |  8080 | ✓ |
-| [Mailhog](#mailhog) | | mailhog | <a href="https://hub.docker.com/r/mailhog/mailhog" target="_blank">mailhog/mailhog</a> | 8025 - 1025 | ✓ |
+| [Mailhog](#mailhog) | | mailhog | <a href="https://hub.docker.com/r/mailhog/mailhog" target="_blank">mailhog/mailhog</a> | 8025 - 1025 |X |
 
 
 ## Instructions
