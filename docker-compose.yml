@@ -1,0 +1,123 @@
+version: '2'
+services:
+
+  # varnish:
+  #   container_name: varnish
+  #   # keopx/varnish available tags: latest, 5.1, 5.0, 4.0.
+  #   image: keopx/varnish:4.0
+  #   ports:
+  #     - "80:80"
+  #     - "6082:6082"
+  #   volumes:
+  #     - ./config/varnish/4.0/default.vcl:/etc/varnish/default.vcl
+  #     ## mattiasgeniar file: https://github.com/mattiasgeniar/varnish-4.0-configuration-templates
+  #     # - ./config/varnish/4.0/drupal-template.vcl:/etc/varnish/default.vcl
+  #     ## Niteman file: https://github.com/NITEMAN/varnish-bites/blob/master/varnish4/drupal-base.vcl
+  #     # - ./config/varnish/4.0/drupal-base.vcl:/etc/varnish/default.vcl
+  #     ## Varnish 5 version.
+  #     # - ./config/varnish/5.0/opt-drupal.vcl:/etc/varnish/default.vcl
+  #   # environment:
+  #     # - VARNISH_PORT=80
+  #     # - VARNISH_MEMORY=500M
+  #     # Next values only works with default default.vcl file.
+  #     # - VARNISH_BACKEND_IP=web
+  #     # - VARNISH_BACKEND_PORT=80
+  #   links:
+  #     - web
+
+
+  web:
+    # container_name: anav_server
+    # keopx/apache-php available tags: latest, 7.2, 7.1, 7.0, 5.6.
+    image: keopx/apache-php:${PHP_VERSION}
+    ports:
+      # 8008 works without varnish.
+      - "${SERVER_PORT}"
+      # - "${SSH_SERVER_PORT}"
+    links:
+      - mysql
+      # - redis
+      # - mail
+    volumes:
+      - ../drupal8:/var/www/html #Data.
+      - ./config/vhosts:/etc/apache2/sites-enabled
+      ### See: https://github.com/keopx/docker-lamp for more information.
+      ## php.ini for php 7.x and remove environment varibles.
+      - ./config/php/${PHP_VERSION}/php.ini:/etc/php/${PHP_VERSION}/apache2/php.ini
+      # Opcache for php 7.0
+      - ./config/php/opcache-recommended.ini:/etc/php/${PHP_VERSION}/apache2/conf.d/10-opcache.ini
+      # APCU for php 7.0
+      - ./config/php/apcu.ini:/etc/php/${PHP_VERSION}/apache2/conf.d/20-apcu.ini
+      # Xdebug for php 7.0
+      - ./config/php/xdebug.ini:/etc/php/${PHP_VERSION}/apache2/conf.d/20-xdebug.ini
+      ## Xhprof for php 7.0
+      #- ./config/php/xhprof.ini:/etc/php/${PHP_VERSION}/apache2/conf.d/20-xhprof.ini
+      # Drush aliases support. e.g.
+      - ~/.drush:/root/.drush
+      # SSH support. e.g.
+      - ~/.ssh:/root/.ssh
+      ## SSMTP support
+      #- ./config/ssmtp/ssmtp.conf:/etc/ssmtp/ssmtp.conf
+    # environment:
+      ### WARNING: Use only if you not use custom php.ini.
+      ## ssmtp mail sender.
+      # - PHP_SENDMAIL_PATH="/usr/sbin/ssmtp -t"
+      ## SMTP server configruation: "domain:port" | "mail" server domain is mailhog name.
+      # - PHP_SENDMAIL_DOMAIN=mail:1025
+    working_dir: /var/www/html
+  
+  mysql:
+    # container_name: anav_ddbb
+    # keopx/mysql available tags: latest, 8.0, 5.7, 5.6, 5.5.
+    image: keopx/mysql:${MYSQL_VERSION}
+    ports:
+      - "${DDBB_PORT}"
+    volumes:
+      - ./data/database:/var/lib/mysql
+      ## Custom setup for MySQL
+      # - ./config/mysql/my.cnf:/etc/mysql/my.cnf
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DDBB_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${DDBB_NAME}
+      - MYSQL_USER=${DDBB_USER}
+      - MYSQL_PASSWORD=${DDBB_PASSWORD}
+
+
+
+  # mariadb:
+  #  container_name: anav_ddbb
+  #  image: wodby/mariadb:${MARIA_VERSION}
+  #  environment:
+  #    - MYSQL_ROOT_PASSWORD=${DDBB_ROOT_PASSWORD}
+  #    - MYSQL_DATABASE=${DDBB_NAME}
+  #    - MYSQL_USER=${DDBB_USER}
+  #    - MYSQL_PASSWORD=${DDBB_PASSWORD}
+  #   ports:
+  #    - "${DDBB_PORT}"
+  #    volumes:
+  #      - ./mariadb-init:/docker-entrypoint-initdb.d # Place init .sql file(s) here.
+  #      - /path/to/mariadb/data/on/host:/var/lib/mysql # I want to manage volumes manually.
+
+  # redis:
+  #   container_name: redis
+  #   keopx/redis available tags: latest, 3.2, 3.0
+  #   image: keopx/redis:${REDIS_VERSION}
+  #   ports:
+  #    - "${REDIS_PORT}"
+
+  phpmyadmin:
+    # container_name: anav_pma
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    links:
+      - mysql
+    environment:
+      - PMA_HOST=mysql
+    
+  # mail:
+  #    container_name: mail
+  #   image: mailhog/mailhog
+  #   ports:
+  #     - "8025:8025"
+  #     - "1025:1025"
