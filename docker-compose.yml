@@ -86,7 +86,7 @@ services:
 
   # mariadb:
   #  container_name: anav_ddbb
-  #  image: wodby/mariadb:${MARIA_VERSION}
+  #  image: wodby/mariadb:${MARIADB_VER}
   #  environment:
   #    - MYSQL_ROOT_PASSWORD=${DDBB_ROOT_PASSWORD}
   #    - MYSQL_DATABASE=${DDBB_NAME}
