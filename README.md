@@ -58,6 +58,16 @@ Copy .env-example file to .env files
 $ cp .env-example .env
 ```
 
+if you are going to run Drupal project execute
+```bash
+$ sudo echo '127.0.0.1 drupal.local' >> /etc/hosts
+```
+
+if you are going to run Lavarel project execute
+```bash
+$ sudo echo '127.0.0.1 lavarel.local' >> /etc/hosts
+```
+
 **Feel free to adjust volumes and ports in the compose file for your convenience.**
 
 ### Usage
