@@ -39,7 +39,7 @@ services:
       # - redis
       # - mail
     volumes:
-      - ../drupal8:/var/www/html #Data.
+      - ../laravel:/var/www/html #Data.
       - ./config/vhosts:/etc/apache2/sites-enabled
       ### See: https://github.com/keopx/docker-lamp for more information.
       ## php.ini for php 7.x and remove environment varibles.
