@@ -64,6 +64,10 @@ services:
       # - PHP_SENDMAIL_PATH="/usr/sbin/ssmtp -t"
       ## SMTP server configruation: "domain:port" | "mail" server domain is mailhog name.
       # - PHP_SENDMAIL_DOMAIN=mail:1025
+      ## SSH support. Uncomment volumes -> # - ${SSH_AUTH_SOCK}:/ssh-agent
+      # - SSH_AUTH_SOCK=/ssh-agent
+      # - XDEBUG_ENABLED
+      # - XDEBUG_HOST
     working_dir: /var/www/html
 
   mysql:
